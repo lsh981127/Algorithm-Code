@@ -19,7 +19,7 @@ def union_parent(a, b):
     return network[a]
     
 testcase = int(input())
-
+result = list()
 for i in range(testcase):
     # 각 케이스별로 부모용, 네트워크용?
     parent = dict()
@@ -36,4 +36,8 @@ for i in range(testcase):
             network[b] = 1
             
         # 매 relation 주어질때마다 실행해서 출력
-        print(union_parent(a,b))
+        result.append(union_parent(a,b))
+        
+        
+for i in range(len(result)):
+    print(result[i])
