@@ -56,7 +56,7 @@ while ice:
 	if group > 1:
 		print(year_count)
 		break
-	ice = sorted(list(set(ice) - set(melted_list)))  # set를 활용해 차집합, 중복되는 거 다 제가
+	ice = list(set(ice) - set(melted_list))  # set를 활용해 차집합, 중복되는 거 다 제가
 	year_count += 1
 
 if group < 2:
