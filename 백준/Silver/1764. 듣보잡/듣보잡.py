@@ -2,31 +2,13 @@ import sys
 input = sys.stdin.readline
 
 N, M = map(int, input().split())
+total = sys.stdin.read().splitlines()
 
-listen = {}
-seen = {}
-total = []
-for i in range(N):
-    listen[input().split()[0]] = 1
+listen = set(total[:N])  # N개까지 listen을 바로 읽어버리네
+seen = set(total[N:])
+total = list(listen & seen) # set간 &로 교집합 처리하면 겹치는 걸 바로 찾기
+total.sort()
 
-
-for j in range(M):
-    seen[input().split()[0]] = 1
-    
-
-listen = dict(sorted(listen.items())) # 미리 sorted 하면 나중에 다시 추가할 필요 없음
-seen = dict(sorted(seen.items()))
-  
-if min(N,M) == N:
-    for i in listen.keys():
-        if i in seen:
-            total.append(i)
-            
-else:
-    for i in seen.keys():
-        if i in listen:
-            total.append(i)
-            
 print(len(total))
-for _, val in enumerate(total):
-    print(val)
+for i in total:
+	print(i)
