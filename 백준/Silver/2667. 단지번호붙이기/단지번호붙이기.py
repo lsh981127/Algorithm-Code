@@ -1,39 +1,38 @@
+import sys
 from collections import deque
 
+input = sys.stdin.readline
 N = int(input())
-houses = [list(input()) for _ in range(N)]
-visited = [[0]*N for _ in range(N)]
+arr = [list(map(int, list(input().strip()))) for _ in range(N)]
+result = []
 
-def bfs(q):
-    cnt = 0
-    while(q):
-        x,y = q.popleft()
+dx = [1, 0, 0, -1]
+dy = [0, 1, -1, 0]
 
-        if visited[x][y]:
+def bfs(a, b):
+    queue = deque()
+    queue.append((a,b))
+    count = 0
+    while queue:
+        x, y = queue.popleft()
+        if arr[x][y] != 1:
             continue
-        cnt += 1
-        visited[x][y] = 1
-        dx = [1,-1,0,0]
-        dy = [0,0,1,-1]
-
+        count += 1
+        arr[x][y] = 2
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
+            if 0 <= nx < N and 0 <= ny < N and arr[nx][ny] == 1:
+                queue.append((nx,ny))
+    return count
 
-            if 0<= nx < N and 0<= ny < N and houses[nx][ny] == '1' and not visited[nx][ny]:
-                q.append((nx,ny))
-    return cnt
-
-building = []
 for i in range(N):
     for j in range(N):
-        if houses[i][j] =='0' or visited[i][j]:
+        if arr[i][j] != 1:
             continue
-
-        cnt = bfs(deque([(i,j)]))
-        building.append(cnt)
-
-building.sort()
-print(len(building))
-for i in building:
+        result.append(bfs(i, j))
+            
+result.sort()
+print(len(result))
+for i in result:
     print(i)
