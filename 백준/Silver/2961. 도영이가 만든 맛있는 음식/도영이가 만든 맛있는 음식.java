@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 
@@ -11,19 +10,22 @@ public class Main {
     static int min = Integer.MAX_VALUE;
 
 
-    /*static void cook(int cnt, int times, int sum) {
-        if (min < Math.abs(times - sum)) return;        // 이미 최솟값을 넘어서면
-        if (cnt == num && times == 0) return;           // 아무것도 선택 안한 경우
-        if(cnt == num) {
+    static void cook(int cnt, int times, int sum) {
+//        if (min < Math.abs(times - sum)) return;        // 이미 최솟값을 넘어서면
+        if(cnt == num & sum != 0) {                     // 아무것도 안 넣은 경우 제외
             min = Math.min(min, Math.abs(times - sum));
-            return ;
+            return;
+        }
+        if(cnt == num & sum == 0) {
+            return;
         }
 
-        cook(cnt + 1, times == 0 ? sour[cnt] : times*sour[cnt], sum + bitter[cnt]);
-        cook(cnt + 1, times, sum);      // 암것도 안넣을때
-    }*/
 
-    static void cook(int cnt) {
+        cook(cnt + 1,  times * sour[cnt], sum + bitter[cnt]);
+        cook(cnt + 1, times, sum);      // 암것도 안넣을때
+    }
+
+    /*static void cook(int cnt) {
 
         if(cnt == num) {
             int times = 1;
@@ -46,7 +48,7 @@ public class Main {
         cook(cnt + 1);
         visited[cnt] = false;
         cook(cnt + 1);      // 암것도 안넣을때
-    }
+    }*/
 
 
     public static void main(String[] args) throws Exception{
@@ -64,7 +66,7 @@ public class Main {
         }
 
 //        cook(0, "");
-        cook(0);
+        cook(0, 1, 0);
         System.out.println(min);
         br.close();
     }
