@@ -16,9 +16,7 @@ public class Main {
 
         for (int i = start; i < num.length; i++) {
             arr[count] = num[i];
-            sum += num[i];
-            comb(count+1, i+1, sum);
-            sum -= num[i];
+            comb(count+1, i+1, sum + num[i]);
         }
     }
 
@@ -30,6 +28,6 @@ public class Main {
 
         comb(0,0, 0);
 
-
+        br.close();
     }
 }
