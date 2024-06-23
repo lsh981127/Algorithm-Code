@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 public class Main {
@@ -60,6 +59,7 @@ public class Main {
         }
 
         System.out.println(min);
+        br.close();
 
     }
 }
