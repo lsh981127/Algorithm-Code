@@ -24,8 +24,11 @@ public class Main {
             int from = sc.nextInt();
             int to = sc.nextInt();
             int cost = sc.nextInt();
-            g[from-1].add(new int[]{to-1, cost});
-            g[to-1].add(new int[]{from-1, cost});
+            if(cost != 0) {
+                g[from-1].add(new int[]{to-1, cost});
+                g[to-1].add(new int[]{from-1, cost});    
+            }
+            
         }
 
         boolean[] v = new boolean[N];
