@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public static int[] solution(String[] operations) {
-        PriorityQueue<Integer> maxPQ = new PriorityQueue<>((o1, o2) -> o1-o2);
+        PriorityQueue<Integer> maxPQ = new PriorityQueue<>(Comparator.reverseOrder());
         PriorityQueue<Integer> minPQ = new PriorityQueue<>((o1, o2) -> o1-o2);
         int max = 0;
         int min = 0;
@@ -13,7 +13,7 @@ class Solution {
             int num = Integer.parseInt(temp[1]);
             switch(func) {
                 case "I":
-                    maxPQ.offer(num * (-1));
+                    maxPQ.offer(num);
                     minPQ.offer(num);
                     count++;
                     break;
@@ -22,30 +22,18 @@ class Solution {
                     if(count == 0)
                         continue;
                     if(num == 1) {
-                        maxPQ.poll();
-                        // 최소 힙 제일 뒤에 있는 거 빼야해
-                        for(int j = 0; j < count; j++) {
-                            dq.offer(minPQ.poll());
-                        }
-                        for(int j = 0; j < count-1; j++) {
-                            minPQ.add(dq.poll());
-                        }
+                        int search = maxPQ.poll();
+                        if(minPQ.contains(search)) minPQ.remove(search);
                     } else {
-                        minPQ.poll();
-                        for(int j = 0; j < count; j++) {
-                            dq.offer(maxPQ.poll());
-                        }
-                        for(int j = 0; j < count-1; j++) {
-                            maxPQ.add(dq.poll());
-                        }
+                        int search = minPQ.poll();
+                        if(maxPQ.contains(search)) maxPQ.remove(search);
 
                     }
                     count--;
             }
         }
-        System.out.println(Arrays.toString(maxPQ.toArray()));
-        System.out.println(Arrays.toString(minPQ.toArray()));
-        if(!maxPQ.isEmpty()) max = maxPQ.peek() * (-1);
+        
+        if(!maxPQ.isEmpty()) max = maxPQ.peek();
         if(!minPQ.isEmpty()) min = minPQ.peek();
 
 
