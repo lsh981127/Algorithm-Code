@@ -13,9 +13,6 @@ class Solution {
             return "0";
         }
 
-        for(String i : arr) {
-            answer += i;
-        }
 
         return String.join("", arr);
     }
