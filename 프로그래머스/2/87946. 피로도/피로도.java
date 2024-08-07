@@ -6,6 +6,7 @@ class Solution {
     
     public int solution(int k, int[][] dungeons) {
         visited = new boolean[dungeons.length];
+        // visited 를 dfs 이후에 선언해뒀어서 계속 틀렸음
         dfs(dungeons, k, 0);
         return max;
     }
@@ -18,6 +19,8 @@ class Solution {
             }
             visited[i] = true;
             dfs(dungeons, current - dungeons[i][1], count + 1);
+            // count++ 을 하면 틀린다!!
+            
             visited[i] = false;
         }
         
