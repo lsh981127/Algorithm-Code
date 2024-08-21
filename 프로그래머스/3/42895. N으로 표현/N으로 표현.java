@@ -31,7 +31,7 @@ class Solution {
                     for(int bVal : bSet) {
                         set.add(aVal + bVal);   // A + B
                         set.add(aVal - bVal);   // A - B
-                        set.add(bVal - aVal);   // B - A    
+                        // set.add(bVal - aVal);   // B - A    
                         set.add(aVal * bVal);   // A * B
                         if(aVal != 0) set.add(bVal / aVal);     // B / A
                         if(bVal != 0) set.add(aVal / bVal);     // A / B
