@@ -1,4 +1,10 @@
 class Solution {
+    // 근데 이 방법이 되네;;
+    // dp 다운업 방식
+    // 그냥 반복문 돌면서 왼쪽 위, 오른쪽 위 중 더 큰 값과 더하는 방식
+    // 제일 마지막번째 배열에서 가장 큰 값을 구하면 되는 거야
+    
+    
     
     public int solution(int[][] triangle) {
         for(int i = 1; i < triangle.length; i++) {
