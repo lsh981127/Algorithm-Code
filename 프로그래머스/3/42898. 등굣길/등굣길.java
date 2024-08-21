@@ -5,6 +5,8 @@ class Solution {
         int[][] graph = new int[n+1][m+1];
         int max = 1000000007;
         for(int[] i : puddles) {
+            // 와씨... i[1] 과 i[0]을 안바꿔줘서 계속 실패
+            
             graph[i[1]][i[0]] = -1;
         }
         
