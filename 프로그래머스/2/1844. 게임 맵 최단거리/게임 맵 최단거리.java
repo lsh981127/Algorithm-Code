@@ -24,8 +24,9 @@ class Solution {
                     // 0이면 막힌 거, 1이 아닌 양수면 이미 누가 방문한 거
                     if(maps[nx][ny] == 1) {
                         maps[nx][ny] += maps[x][y];
-                        v[nx][ny] = true;
+                        
                         dq.offer(new int[]{nx,ny});
+                        v[nx][ny] = true;
                     }
                 }
             }
