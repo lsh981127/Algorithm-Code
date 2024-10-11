@@ -19,7 +19,7 @@ public class Main {
             if(lis[len-1] < arr[i]) {
                 lis[len] = arr[i];
                 len++;
-            } else {
+            } else if(lis[len-1] > arr[i]) {
                 int idx = binarySearch(lis, 0, len - 1, arr[i]);
                 lis[idx] = arr[i];
             }
