@@ -1,16 +1,25 @@
+import java.util.*;
+import java.io.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+class Village implements Comparable<Village>{
+    int number;
+    int cost;
+
+    Village(int number, int cost) {
+        this.number = number;
+        this.cost = cost;
+    }
+
+    @Override
+    public int compareTo(Village n) {
+        return this.cost - n.cost;
+    }
+}
 
 public class Main {
     static int N, M, X;
-    static boolean[] v;
-    static int[][] map;
+    static int[] x_path;
+    static ArrayList<ArrayList<Village>> map;
     static int MAX = 1000001;
 
     public static void main(String[] args) throws IOException{
@@ -20,10 +29,9 @@ public class Main {
         M = Integer.parseInt(st.nextToken());  // 도로 갯수
         X = Integer.parseInt(st.nextToken());  // 파티하는 마을
 
-        map = new int[N+1][N+1];
-        for(int i = 1; i <= N; i++){
-            Arrays.fill(map[i], MAX);
-            map[i][i] = 0;
+        map = new ArrayList<>();
+        for(int i = 0; i < N+1; i++) {
+            map.add(new ArrayList<>());
         }
 
         for(int i = 0; i < M; i++) {
@@ -31,26 +39,16 @@ public class Main {
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
             int cost = Integer.parseInt(st.nextToken());
-            map[start][end] = cost;
+            map.get(start).add(new Village(end, cost));
         }
 
-
-        for(int k = 1; k < N+1; k++) {
-            for(int i = 1; i < N+1; i++) {
-                for(int j = 1; j < N+1; j++) {
-                    map[i][j] = Math.min(map[i][j], map[i][k] + map[k][j]);
-                }
-            }
-        }
-
+        x_path = dijkstra(X);
         int answer = 0;
-//        for(int i = 1; i <= N; i++) {
-//            System.out.println(Arrays.toString(map[i]));
-//        }
 
-        for(int i = 1; i < N+1; i++) {
-            int temp = map[i][X] + map[X][i];
-            answer = Math.max(answer, temp);
+        for(int i = 1; i < N+1; i++) {  // 모든 마을에서 X 마을까지 진행
+            if(i == X) continue;
+            int[] temp = dijkstra(i);  // i번쨰에서 X까지 거리 구하기용 최단 거리
+            answer = Math.max(answer, temp[X] + x_path[i]);
         }
 
         System.out.println(answer);
@@ -58,4 +56,22 @@ public class Main {
 
     }
 
+    public static int[] dijkstra(int start) {
+        PriorityQueue<Village> pq = new PriorityQueue<>();
+        pq.offer(new Village(start, 0));
+        int[] dist = new int[N+1];
+        Arrays.fill(dist, MAX);
+        dist[start] = 0;
+        while(!pq.isEmpty()) {
+            Village current = pq.poll();
+            for(Village next : map.get(current.number)) {
+                if(dist[next.number] > dist[current.number] + next.cost) {
+                    dist[next.number] = dist[current.number] + next.cost;
+                    pq.offer(next);
+                }
+            }
+        }
+
+        return dist;
+    }
 }
